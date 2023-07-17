@@ -11,69 +11,33 @@ namespace Warmsnow_NewPotionSystem
     /// </summary>
     public abstract class Potion : UnityEngine.MonoBehaviour, IPotion
     {
-        protected PlayerAnimControl _player;
-        public Potion(PlayerAnimControl player)
-        {
-            _player = player;
-        }
-        public PN PotionName { get; protected set; }
-        public virtual void Update()
-        {
+        protected PlayerAnimControl Player => PlayerAnimControl.instance;
+        public abstract PN PotionName { get; }
+        public virtual void Update() { }
+        public virtual void Start() { }
+        public virtual void OnEnemyDealDamage(EnemyControl.Damage damage) { }
 
-        }
-        public virtual void OnEnemyDealDamage(EnemyControl.Damage damage)
-        {
+        public virtual void OnPlayerDealDamage(EnemyControl.Damage damage) { }
 
-        }
+        public virtual void OnPotionAgilityDown() { }
 
-        public virtual void OnPlayerDealDamage(EnemyControl.Damage damage)
-        {
+        public virtual void OnPotionAgilityUp() { }
 
-        }
+        public virtual void OnPotionConstitueDown() { }
 
-        public virtual void OnPotionAgilityDown()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnPotionConstitueUp() { }
 
-        public virtual void OnPotionAgilityUp()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnPotionCoreDown() { }
 
-        public virtual void OnPotionConstitueDown()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnPotionCoreUp() { }
 
-        public virtual void OnPotionConstitueUp()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnPotionStrengthDown() { }
 
-        public virtual void OnPotionCoreDown()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void OnPotionCoreUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void OnPotionStrengthDown()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void OnPotionStrengthUp()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void OnPotionStrengthUp() { }
 
         public virtual void OnPotionPowerBurst()
         {
-            _player.playerParameter.MP = 0;
+            Player.playerParameter.MP = 0;
         }
     }
 }

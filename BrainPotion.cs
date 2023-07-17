@@ -16,14 +16,14 @@ namespace Warmsnow_NewPotionSystem
         event SkillTimer.SkillTimerUpdateHandler OnSkillTimerUpdate;
         SkillTimer PowerBurstTimer;
         SkillTimer SkillCoolDownTimer;
+        public override PN PotionName => PN.YellowPaper;
         public override void Update()
         {
             base.Update();
             OnSkillTimerUpdate.Invoke(Time.deltaTime);
         }
-        public BrainPotion(PlayerAnimControl player) : base(player)
+        public override void Start()
         {
-            PotionName = PN.YellowPaper;
             //5秒持续时间，0CD。
             PowerBurstTimer = new SkillTimer(5, 0, OnPowerBurstEnd);
             OnSkillTimerUpdate += PowerBurstTimer.OnUpdate;
@@ -37,24 +37,24 @@ namespace Warmsnow_NewPotionSystem
         /// </summary>
         public override void OnPotionCoreUp()
         {
-            _player.playerParameter.MP = _player.playerParameter.MAX_MP - 1;
+            Player.playerParameter.MP = Player.playerParameter.MAX_MP - 1;
         }
         /// <summary>
         /// 核心换下脑子后，怒气值设置为0
         /// </summary>
         public override void OnPotionCoreDown()
         {
-            _player.playerParameter.MP = 0;
+            Player.playerParameter.MP = 0;
         }
         public override void OnPotionPowerBurst()
         {
             base.OnPotionPowerBurst();
-            _player.playerParameter.EXTRA_ATTACK_SPEED += 30;
+            Player.playerParameter.EXTRA_ATTACK_SPEED += 30;
             PowerBurstTimer.IsRunning = true;
         }
         void OnPowerBurstEnd()
         {
-            _player.playerParameter.EXTRA_ATTACK_SPEED -= 30;
+            Player.playerParameter.EXTRA_ATTACK_SPEED -= 30;
         }
     }
 }
